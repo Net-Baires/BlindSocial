@@ -21,7 +21,6 @@ namespace BlindSocial.Views
 
 				await CrossTextToSpeech.Current.Speak(text, selectedLanguage);
             });
-			
         }
     }
 }

@@ -1,21 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using BlindSocial.Services;
+using Plugin.Media;
+using System;
+using System.IO;
 using Xamarin.Forms;
 
 namespace BlindSocial.Views
 {
     public partial class IndexPage : ContentPage
     {
+        ApiService apiService;
+
         public IndexPage()
         {
             InitializeComponent();
+
+            apiService = new ApiService(string.Empty, string.Empty);
         }
 
-        async void OnTapGestureRecognizerTapped(object sender, EventArgs args) {
+        async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+        {
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
-                DisplayAlert("No Camera", ":( No camera avaialble.", "OK");
+                await DisplayAlert("No Camera", ":( No camera avaialble.", "OK");
                 return;
             }
 
@@ -23,22 +29,23 @@ namespace BlindSocial.Views
             {
                 PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
                 Directory = "Sample",
-                Name = "test.jpg"
+                Name = $"test{ DateTime.Now.Ticks }.jpg"
             });
 
             if (file == null)
                 return;
 
-            DisplayAlert("File Location", file.Path, "OK");
-
-            image.Source = ImageSource.FromStream(() =>
+            var s = file.GetStream();
+            byte[] b;
+            using (BinaryReader br = new BinaryReader(s))
             {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
+                b = br.ReadBytes((int)s.Length);
+            }
 
-            //App.Current.MainPage = new SpeakPage();
+            //var text = await apiService.Analize(b);
+            //App.Current.MainPage = new SpeakPage(text);
+
+            App.Current.MainPage = new SpeakPage();
         }
     }
 }

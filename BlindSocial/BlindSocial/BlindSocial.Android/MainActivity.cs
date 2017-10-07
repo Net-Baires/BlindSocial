@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 
 namespace BlindSocial.Droid
 {
