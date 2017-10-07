@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Plugin.TextToSpeech;
 using Plugin.TextToSpeech.Abstractions;
@@ -21,7 +22,11 @@ namespace BlindSocial.Views
 
 				await CrossTextToSpeech.Current.Speak(text, selectedLanguage);
             });
-			
         }
+
+		void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+		{
+			// Camara de nuevo
+		}
     }
 }
