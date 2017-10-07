@@ -10,18 +10,22 @@ namespace BlindSocial.Views
     public partial class SpeakPage : ContentPage
     {
         CrossLocale? selectedLanguage;
+        string text;
 
-
-        public SpeakPage()
+        public SpeakPage(string text)
         {
             InitializeComponent();
 
-            Task.Run(async() => {
-				var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();
+            if (string.IsNullOrEmpty(text))
+                text = "No se pudo reconocer la imagen";
 
-				selectedLanguage = languages.Where(x => x.Language == "es" && x.Country == "ES").FirstOrDefault();
+            Task.Run(async () =>
+            {
+                var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();
 
-                await speakText("Hola mundo ! Somos el equipo Net Baires.");
+                selectedLanguage = languages.Where(x => x.Language == "es" && x.Country == "ES").FirstOrDefault();
+
+                await speakText(text);
             });
         }
 
@@ -30,30 +34,35 @@ namespace BlindSocial.Views
         void OnSingleTapGestureRecognizerTappedAsync(object sender, EventArgs args)
         {
             tapHandled = false;
-            Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 0, 0, 300), taptimer);
+            Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 0, 0, 300), Taptimer);
         }
 
-        async Task OnDoubleTapGestureRecognizerTapped(object sender, EventArgs args)
-		{
+        void OnDoubleTapGestureRecognizerTapped(object sender, EventArgs args)
+        {
             tapHandled = true;
-            await DisplayAlert("Camara","Flash !","Click");
-		}
-
-        async Task speakText(string text) {
-			await CrossTextToSpeech.Current.Speak(text, selectedLanguage);
+            Navigation.PopModalAsync();
         }
 
-		private bool taptimer()
-		{
-			if (!tapHandled)
-			{
-				tapHandled = true;
-                Task.Run(async()=>{
-                    await speakText("Hola mundo ! Somos el equipo Net Baires.");
+        async Task speakText(string text)
+        {
+            await CrossTextToSpeech.Current.Speak(text, selectedLanguage);
+        }
+
+        private bool Taptimer()
+        {
+            if (!tapHandled)
+            {
+                tapHandled = true;
+                Task.Run(async () =>
+                {
+                    //var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();
+
+                    //selectedLanguage = languages.Where(x => x.Language == "es" && x.Country == "ES").FirstOrDefault();
+
+                    await speakText(text);
                 });
-			
-			}
-			return false;
-		}
-	}
+            }
+            return false;
+        }
+    }
 }

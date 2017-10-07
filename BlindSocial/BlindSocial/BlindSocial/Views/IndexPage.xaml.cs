@@ -2,6 +2,7 @@
 using Plugin.Media;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BlindSocial.Views
@@ -12,9 +13,10 @@ namespace BlindSocial.Views
 
         public IndexPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
 
-            apiService = new ApiService(string.Empty, string.Empty);
+            apiService = new ApiService("api/BlindSocial", string.Empty);
         }
 
         async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
@@ -42,10 +44,29 @@ namespace BlindSocial.Views
                 b = br.ReadBytes((int)s.Length);
             }
 
-            //var text = await apiService.Analize(b);
+            var text = await apiService.Analize(b);
             //App.Current.MainPage = new SpeakPage(text);
 
-            App.Current.MainPage = new SpeakPage();
+            await Navigation.PushModalAsync(new SpeakPage(text));
         }
+
+        //static CloudBlobContainer GetContainer(ContainerType containerType)
+        //{
+        //    var account = CloudStorageAccount.Parse(Constants.StorageConnection);
+        //    var client = account.CreateCloudBlobClient();
+        //    return client.GetContainerReference(containerType.ToString().ToLower());
+        //}
+
+        //public static async Task<string> UploadFileAsync(ContainerType containerType, Stream stream)
+        //{
+        //    var container = GetContainer(containerType);
+        //    await container.CreateIfNotExistsAsync();
+
+        //    var name = Guid.NewGuid().ToString();
+        //    var fileBlob = container.GetBlockBlobReference(name);
+        //    await fileBlob.UploadFromStreamAsync(stream);
+
+        //    return name;
+        //}
     }
 }
