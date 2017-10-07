@@ -7,8 +7,11 @@
             <Image Source="speech.png" Aspect="AspectFit" WidthRequest="300" HeightRequest="300">
                 <Image.GestureRecognizers>
                         <TapGestureRecognizer
-                            Tapped="OnTapGestureRecognizerTapped"
+                            Tapped="OnSingleTapGestureRecognizerTappedAsync"
                             NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer
+                            Tapped="OnDoubleTapGestureRecognizerTapped"
+                            NumberOfTapsRequired="2" />
                   </Image.GestureRecognizers>
             </Image>
        </StackLayout>
