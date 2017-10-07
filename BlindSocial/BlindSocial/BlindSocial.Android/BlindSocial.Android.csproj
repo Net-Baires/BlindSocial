@@ -86,6 +86,12 @@
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.3.4.247\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.TextToSpeech.Abstractions">
+      <HintPath>..\..\packages\Xam.Plugins.TextToSpeech.3.0.1\lib\MonoAndroid10\Plugin.TextToSpeech.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.TextToSpeech">
+      <HintPath>..\..\packages\Xam.Plugins.TextToSpeech.3.0.1\lib\MonoAndroid10\Plugin.TextToSpeech.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -108,10 +114,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\profile_generic.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\profile_generic.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\profile_generic.png" />
+    <AndroidResource Include="Resources\drawable\camera.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlindSocial\BlindSocial.csproj">
-      <Project>{97ec3de3-26f0-4818-9eae-9a05bf6ad3fe}</Project>
+      <Project>{B5DAE76F-CBAA-4205-BE58-24CBFCD3F66B}</Project>
       <Name>BlindSocial</Name>
     </ProjectReference>
   </ItemGroup>
