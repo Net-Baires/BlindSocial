@@ -4,7 +4,16 @@
     x:Class="BlindSocial.Views.SpeakPage">
 	<ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Image Source="speech.png" Aspect="AspectFit" WidthRequest="300" HeightRequest="300" />
+            <Image Source="speech.png" Aspect="AspectFit" WidthRequest="300" HeightRequest="300">
+                <Image.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnSingleTapGestureRecognizerTappedAsync"
+                            NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer
+                            Tapped="OnDoubleTapGestureRecognizerTapped"
+                            NumberOfTapsRequired="2" />
+                  </Image.GestureRecognizers>
+            </Image>
        </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

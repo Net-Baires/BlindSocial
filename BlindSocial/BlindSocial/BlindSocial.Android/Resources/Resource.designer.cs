@@ -2720,59 +2720,66 @@ namespace BlindSocial.Droid
 			// aapt resource value: 0x7f0200fd
 			public const int mr_media_stop_dark = 2130837757;
 			
-			// aapt resource value: 0x7f0200fe
-			public const int mr_media_stop_light = 2130837758;
+
+			// aapt resource value: 0x7f020092
+			public const int icon = 2130837650;
 			
-			// aapt resource value: 0x7f0200ff
-			public const int mr_vol_type_audiotrack_dark = 2130837759;
+			// aapt resource value: 0x7f020093
+			public const int mr_dialog_material_background_dark = 2130837651;
 			
-			// aapt resource value: 0x7f020100
-			public const int mr_vol_type_audiotrack_light = 2130837760;
+			// aapt resource value: 0x7f020094
+			public const int mr_dialog_material_background_light = 2130837652;
 			
-			// aapt resource value: 0x7f020101
-			public const int navigation_empty_icon = 2130837761;
+			// aapt resource value: 0x7f020095
+			public const int mr_ic_audiotrack_light = 2130837653;
 			
-			// aapt resource value: 0x7f020102
-			public const int notification_action_background = 2130837762;
+			// aapt resource value: 0x7f020096
+			public const int mr_ic_cast_dark = 2130837654;
 			
-			// aapt resource value: 0x7f020103
-			public const int notification_bg = 2130837763;
+			// aapt resource value: 0x7f020097
+			public const int mr_ic_cast_light = 2130837655;
 			
-			// aapt resource value: 0x7f020104
-			public const int notification_bg_low = 2130837764;
+			// aapt resource value: 0x7f020098
+			public const int mr_ic_close_dark = 2130837656;
 			
-			// aapt resource value: 0x7f020105
-			public const int notification_bg_low_normal = 2130837765;
+			// aapt resource value: 0x7f020099
+			public const int mr_ic_close_light = 2130837657;
 			
-			// aapt resource value: 0x7f020106
-			public const int notification_bg_low_pressed = 2130837766;
+			// aapt resource value: 0x7f02009a
+			public const int mr_ic_media_route_connecting_mono_dark = 2130837658;
 			
-			// aapt resource value: 0x7f020107
-			public const int notification_bg_normal = 2130837767;
+			// aapt resource value: 0x7f02009b
+			public const int mr_ic_media_route_connecting_mono_light = 2130837659;
 			
-			// aapt resource value: 0x7f020108
-			public const int notification_bg_normal_pressed = 2130837768;
+			// aapt resource value: 0x7f02009c
+			public const int mr_ic_media_route_mono_dark = 2130837660;
 			
-			// aapt resource value: 0x7f020109
-			public const int notification_icon_background = 2130837769;
+			// aapt resource value: 0x7f02009d
+			public const int mr_ic_media_route_mono_light = 2130837661;
 			
-			// aapt resource value: 0x7f02010e
-			public const int notification_template_icon_bg = 2130837774;
+			// aapt resource value: 0x7f02009e
+			public const int mr_ic_pause_dark = 2130837662;
 			
-			// aapt resource value: 0x7f02010f
-			public const int notification_template_icon_low_bg = 2130837775;
+			// aapt resource value: 0x7f02009f
+			public const int mr_ic_pause_light = 2130837663;
 			
-			// aapt resource value: 0x7f02010a
-			public const int notification_tile_bg = 2130837770;
+			// aapt resource value: 0x7f0200a0
+			public const int mr_ic_play_dark = 2130837664;
 			
-			// aapt resource value: 0x7f02010b
-			public const int notify_panel_notification_icon_bg = 2130837771;
+			// aapt resource value: 0x7f0200a1
+			public const int mr_ic_play_light = 2130837665;
 			
-			// aapt resource value: 0x7f02010c
-			public const int profile_generic = 2130837772;
+			// aapt resource value: 0x7f0200a5
+			public const int notification_template_icon_bg = 2130837669;
 			
-			// aapt resource value: 0x7f02010d
-			public const int slideout = 2130837773;
+			// aapt resource value: 0x7f0200a2
+			public const int profile_generic = 2130837666;
+			
+			// aapt resource value: 0x7f0200a3
+			public const int slideout = 2130837667;
+			
+			// aapt resource value: 0x7f0200a4
+			public const int speech = 2130837668;
 			
 			static Drawable()
 			{
