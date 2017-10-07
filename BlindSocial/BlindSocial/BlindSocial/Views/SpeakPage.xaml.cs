@@ -19,6 +19,8 @@ namespace BlindSocial.Views
             if (string.IsNullOrEmpty(text))
                 text = "No se pudo reconocer la imagen";
 
+            this.text = text;
+
             Task.Run(async () =>
             {
                 var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();
@@ -53,6 +55,7 @@ namespace BlindSocial.Views
             if (!tapHandled)
             {
                 tapHandled = true;
+                var text = this.text;
                 Task.Run(async () =>
                 {
                     //var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();

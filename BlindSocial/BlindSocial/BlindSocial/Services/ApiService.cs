@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BlindSocial.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BlindSocial.Services
 
         public ApiService(string baseAddress, string securityToken)
         {
-            this.baseAddress = "http://xamarinparty.azurewebsites.net/" + baseAddress;
+            this.baseAddress = "http://blindsocialapi20171007020817.azurewebsites.net/" + baseAddress;
             // Storing the security token in a class property of type string    
             this.securityToken = securityToken.StartsWith("Bearer") ? securityToken.Substring(7) : securityToken;
             m_HttpClient = CreateHttpClient();
@@ -38,20 +39,44 @@ namespace BlindSocial.Services
 
             return httpClient;
         }
-        
-        public async Task<string> Analize(byte[] file)
+
+        public async Task<RootObject> Analize(string url)
         {
             try
             {
                 // Get the response from the server url and REST path for the data  
-                var response = await m_HttpClient.PostAsync(new Uri(baseAddress),
-                    new StringContent($"{{ \" { file.ToString() } \" }}", Encoding.UTF8, "application/json"));
+                var response = await m_HttpClient.PostAsync(new Uri(baseAddress + "?url=" + url),
+                    new StringContent("", Encoding.UTF8, "application/json"));
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                     throw new UnauthorizedAccessException("Access Denied");
 
                 if (response.IsSuccessStatusCode)
-                    return JsonConvert.DeserializeObject<string>(await response.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<RootObject>(await response.Content.ReadAsStringAsync());
+
+                throw new WebException(response.ReasonPhrase);
+            }
+            catch (Exception ex)
+            {
+                // TODO:        
+                throw ex;
+            }
+        }
+
+
+        public async Task<RootObject> Translate(string text)
+        {
+            try
+            {
+                // Get the response from the server url and REST path for the data  
+                var response = await m_HttpClient.PostAsync(new Uri("https://translation.googleapis.com/language/translate/v2?key=AIzaSyALIcOB9d-HFCfHl1LHI_9p5iyUT8vNIsk"),
+                    new StringContent("", Encoding.UTF8, "application/json"));
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new UnauthorizedAccessException("Access Denied");
+
+                if (response.IsSuccessStatusCode)
+                    return JsonConvert.DeserializeObject<RootObject>(await response.Content.ReadAsStringAsync());
 
                 throw new WebException(response.ReasonPhrase);
             }

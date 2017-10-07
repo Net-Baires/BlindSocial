@@ -2,6 +2,7 @@
 using Plugin.Media;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -37,36 +38,27 @@ namespace BlindSocial.Views
             if (file == null)
                 return;
 
-            var s = file.GetStream();
-            byte[] b;
-            using (BinaryReader br = new BinaryReader(s))
-            {
-                b = br.ReadBytes((int)s.Length);
-            }
+            var blobStorage = DependencyService.Get<IBlobStorage>();
+            var url = await blobStorage.PerformBlobOperation(file.GetStream());
 
-            var text = await apiService.Analize(b);
-            //App.Current.MainPage = new SpeakPage(text);
+            var rootObject = await apiService.Analize(url);
+            var text = string.Empty;
+
+            if (rootObject.Description.Captions.Any())
+            {
+                text += "En la imagen puedo reconocer lo siguiente: \n";
+
+                var englishText = string.Empty;
+                foreach (var caption in rootObject.Description.Captions)
+                {
+                    englishText += caption.Text;
+                }
+
+                text += englishText;
+            }
 
             await Navigation.PushModalAsync(new SpeakPage(text));
         }
 
-        //static CloudBlobContainer GetContainer(ContainerType containerType)
-        //{
-        //    var account = CloudStorageAccount.Parse(Constants.StorageConnection);
-        //    var client = account.CreateCloudBlobClient();
-        //    return client.GetContainerReference(containerType.ToString().ToLower());
-        //}
-
-        //public static async Task<string> UploadFileAsync(ContainerType containerType, Stream stream)
-        //{
-        //    var container = GetContainer(containerType);
-        //    await container.CreateIfNotExistsAsync();
-
-        //    var name = Guid.NewGuid().ToString();
-        //    var fileBlob = container.GetBlockBlobReference(name);
-        //    await fileBlob.UploadFromStreamAsync(stream);
-
-        //    return name;
-        //}
     }
 }
