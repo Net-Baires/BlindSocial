@@ -1,5 +1,6 @@
 ﻿using BlindSocial.Services;
 using Plugin.Media;
+using Plugin.TextToSpeech;
 using System;
 using System.IO;
 using System.Linq;
@@ -37,6 +38,13 @@ namespace BlindSocial.Views
 
             if (file == null)
                 return;
+
+            var languages = await CrossTextToSpeech.Current.GetInstalledLanguages();
+
+            var selectedLanguage = languages.Where(x => x.Language == "es" && x.Country == "ES").FirstOrDefault();
+
+            await CrossTextToSpeech.Current.Speak("Se esta procesando la imagen, aguarde por favor", selectedLanguage);
+
 
             var blobStorage = DependencyService.Get<IBlobStorage>();
             var url = await blobStorage.PerformBlobOperation(file.GetStream());

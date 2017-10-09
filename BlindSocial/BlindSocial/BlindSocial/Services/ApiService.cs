@@ -64,19 +64,19 @@ namespace BlindSocial.Services
         }
 
 
-        public async Task<RootObject> Translate(string text)
+        public async Task<string> Translate(string text)
         {
             try
             {
                 // Get the response from the server url and REST path for the data  
-                var response = await m_HttpClient.PostAsync(new Uri("https://translation.googleapis.com/language/translate/v2?key=AIzaSyALIcOB9d-HFCfHl1LHI_9p5iyUT8vNIsk"),
-                    new StringContent("", Encoding.UTF8, "application/json"));
+                var response = await m_HttpClient.PostAsync(new Uri("https://translation.googleapis.com/language/translate/v2?key={API_KEY}"),
+                    new StringContent($"{{'q': '{text}', 'target': 'es'}}", Encoding.UTF8, "application/json"));
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                     throw new UnauthorizedAccessException("Access Denied");
 
                 if (response.IsSuccessStatusCode)
-                    return JsonConvert.DeserializeObject<RootObject>(await response.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<string>(await response.Content.ReadAsStringAsync());
 
                 throw new WebException(response.ReasonPhrase);
             }
